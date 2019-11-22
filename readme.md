@@ -5,7 +5,8 @@ Quite simply, a **typing game**. Using HTML/CSS/JS in combination with a word AP
 ## Wire Frame
 ![Image of WireFrame](images/wireframe1.JPG)
 
-## API usage
+## API usage ()
+![Image of first API test](/images/apicall.png)
 
 ## Features
 **Type & See:** This is a visual game as much as it's a logical game. As you type a letter of the word, if the letter is correct in the correct order, the background of the letter will turn green. If the word is wrong, the background color of the word will turn orange.
