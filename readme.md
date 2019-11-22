@@ -1,9 +1,9 @@
 # "WORD SPRINT"
 
-Quite simply, a **typing game**. Using HTML/CSS/JS in combination with a word API to populate random words for you to race against! This is a timed game where you type words you see on the screen. Each game is 60 seconds long. 
+Quite simply, a **typing game**. Using HTML/CSS/JS in combination with a word API to populate random words for you to race against! This is a timed game where you type words you see on the screen. Every game is 60 seconds long. 
 
 ## Wire Frame
-![Image of WireFrame](/images/wireframe.jpg)
+![Image of WireFrame](/images/wireframe1.jpg)
 
 ## API usage
 
