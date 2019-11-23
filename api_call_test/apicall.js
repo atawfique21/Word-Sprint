@@ -1,11 +1,26 @@
 let baseURL = 'https://random-word-api.herokuapp.com/all?key='
 const key = '3L1E3XTX'
-let grabWords = async function () {
+let randWordArray = []
+let getRandWord = async function () {
+  // get a list of words
   const response = await axios.get(`${baseURL}${key}`)
-  console.log(response)
+
+  for (let i = 0; i < 200; i++) {
+    let returnRandomizedWord = async function (response) {
+      response = response.data;
+      let num = Math.floor(Math.random() * response.length)
+      let randomWord = response[num]
+      randWordArray.push(randomWord)
+    }
+    returnRandomizedWord(response)
+  }
+
 }
-grabResults();
+getRandWord()
+console.log(randWordArray)
+
 
 window.onload = function () {
-  const button = document.querySelector('#button') 
-} 
+  const button = document.querySelector('#button')
+}
+
