@@ -89,3 +89,28 @@ h3 {
 
 #time {
 }
+
+#word {
+  color: #f1f2f5;
+  display: flex;
+  justify-content: center;
+  /* align-content: space-around; */
+  font-size: 70px;
+}
+
+h4 {
+  margin-top: 120px;
+
+}
+
+.correct {
+  background-color: #6EB790;
+}
+
+.incorrect {
+  background-color: #DDA448;
+}
+
+span {
+  display: inline;
+}
