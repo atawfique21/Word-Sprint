@@ -1,36 +1,44 @@
-let baseURL = 'https://random-word-api.herokuapp.com/all?key='
-const key = 'RHRG9QV3'
-let randWordArray = []
-
-
-let getRandWord = async function () {
-  // get a list of words
-  const response = await axios.get(`${baseURL}${key}`)
-  // go through those list of words to randomly fill an array with 200 words
-  for (let i = 0; i < 200; i++) {
-    let returnRandomizedWord = async function (response) {
-      response = response.data;
-      let num = Math.floor(Math.random() * response.length)
-      let randomWord = response[num]
-      randWordArray.push(randomWord)
-    }
-    returnRandomizedWord(response)
-  }
-}
-getRandWord()
-//random word array is filled at this point
-
-// need to grab the current word in h4
-// maybe put the word into an array so we can index it? 
-// if evt.key pressed = currentword index, do something
-// const currentWord = document.querySelector('#currentWord').innerHTML.toLowerCase()
-// const currentWordArr = currentWord.split("")
-// console.log(currentWordArr)
-
-
 window.onload = function () {
+  let baseURL = 'https://random-word-api.herokuapp.com/all?key='
+  const key = '00NP3T24'
+  let randWordArray = []
+
+
+  let getRandWord = async function () {
+    const response = await axios.get(`${baseURL}${key}`)
+    console.log(response)
+    for (let i = 0; i < 200; i++) {
+      let returnRandomizedWord = async function (response) {
+        response = response.data;
+        let num = Math.floor(Math.random() * response.length)
+        let randomWord = response[num]
+        randWordArray.push(randomWord)
+      }
+      returnRandomizedWord(response)
+    }
+  }
+  getRandWord()
+
+  function isCorrect(evt, letterIndex, currentWordSel) {
+    i = letterIndex;
+    currentLetter = currentWordSel[i].innerHTML;
+    console.log(currentLetter)
+    if (evt.key !== currentLetter) {
+      currentWordSel[i].className = "";
+      currentWordSel[i].classList.add("incorrect")
+      return false;
+    } else {
+      currentWordSel[i].className = "";
+      currentWordSel[i].classList.add("correct")
+      return true;
+    }
+  }
+
+
+  // window.onload = function () {
   let letterIndex = 0;
   let currentWordSel = document.querySelectorAll(`#w`);
+  let arrayIndex = 0;
 
   document.body.addEventListener('keydown', function (evt) {
     console.log(evt)
@@ -47,22 +55,14 @@ window.onload = function () {
       }
     }
   })
-}
-//      isCorrect(currentWordSel[letterIndex], evt, letterIndex, currentWordSel)
+  console.log('hi')
+  console.log(randWordArray[0])
 
-
-function isCorrect(evt, letterIndex, currentWordSel) {
-  i = letterIndex;
-  currentLetter = currentWordSel[i].innerHTML;
-  console.log(currentLetter)
-  if (evt.key !== currentLetter) {
-    currentWordSel[i].className = "";
-    currentWordSel[i].classList.add("incorrect")
-    return false;
-  } else {
-    currentWordSel[i].className = "";
-    currentWordSel[i].classList.add("correct")
-    return true;
+  function newWord(arr) {
+    let wordDiv = document.querySelector('#word')
+    wordDiv.innerHTML = ""
+    let word = arr[arrayIndex].split("")
   }
-}
 
+  newWord(randWordArray)
+}
