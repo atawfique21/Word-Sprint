@@ -30,22 +30,18 @@ getRandWord()
 
 window.onload = function () {
   let letterIndex = 0;
-
   let currentWordSel = document.querySelectorAll(`#w`);
-  let currentLetter = currentWordSel[letterIndex]
+
   document.body.addEventListener('keydown', function (evt) {
-    // console.log(evt.key)
-    console.log(letterIndex)
-    if (evt.key === 'CapsLock' || evt.key === 'Meta') {
+    console.log(evt)
+    if (evt.key === 'CapsLock' || evt.key === 'Meta' || evt.key === 'Shift') {
       return;
     } else if (evt.key === 'Backspace') {
-      console.log(letterIndex)
-
       currentWordSel[letterIndex].className = "";
-
+    } else if (!evt.key !== 'BackSpace' && currentWordSel[letterIndex].classList.contains("incorrect")) {
+      return;
     } else {
       if (!isCorrect(evt, letterIndex, currentWordSel)) {
-        // letterIndex++
       } else {
         letterIndex = letterIndex + 1;
       }
@@ -68,11 +64,5 @@ function isCorrect(evt, letterIndex, currentWordSel) {
     currentWordSel[i].classList.add("correct")
     return true;
   }
-  // if (evt.key === currentLetter) {
-  //   // currentLetterSec[i].className = "";
-  //   // currentLetterSec[i].classList.add("correct")
-  // } else {
-  //   // currentLetterSec[i].className = "";
-  //   // currentLetterSec[i].classList.add("incorrect")
 }
 
