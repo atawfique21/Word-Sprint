@@ -43,11 +43,10 @@ window.onload = function () {
     } else if (evt.key === 'Backspace' && letterIndex >= 1) {
       console.log(letterIndex)
       letterIndex--
-      currentWordSel[letterIndex].classList.remove('correct')
-      currentWordSel[letterIndex].classList.remove('remove')
+      currentWordSel[letterIndex].className = "";
     } else {
       if (!isCorrect(evt, letterIndex, currentWordSel)) {
-        letterIndex++
+        // letterIndex++
       } else {
         letterIndex = letterIndex + 1;
       }
