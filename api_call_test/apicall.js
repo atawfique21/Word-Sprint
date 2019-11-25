@@ -29,20 +29,52 @@ getRandWord()
 
 
 window.onload = function () {
+  let letterIndex = 0;
 
+  let currentWordSel = document.querySelectorAll(`#w`);
+  let currentLetter = currentWordSel[letterIndex]
   document.body.addEventListener('keydown', function (evt) {
-    checkTyped(evt)
-  })
-
-  function checkTyped(evt) {
-    let currentLetterSec = document.querySelectorAll(`#w`)
-    let currentLetter;
-    for (let i = 0; i < currentLetterSec.length; i++) {
-      currentLetter = currentLetterSec[i].innerHTML
-      if (evt.key == currentLetter) {
-        currentLetterSec[i].classList.add("correct")
+    // console.log(evt.key)
+    console.log(letterIndex)
+    if (evt.key === 'CapsLock' || evt.key === 'Meta') {
+      return;
+    } else if (evt.key === 'Backspace' && letterIndex === 0) {
+      return;
+    } else if (evt.key === 'Backspace' && letterIndex >= 1) {
+      console.log(letterIndex)
+      letterIndex--
+      currentWordSel[letterIndex].classList.remove('correct')
+      currentWordSel[letterIndex].classList.remove('remove')
+    } else {
+      if (!isCorrect(evt, letterIndex, currentWordSel)) {
+        letterIndex++
+      } else {
+        letterIndex = letterIndex + 1;
       }
     }
+  })
+}
+//      isCorrect(currentWordSel[letterIndex], evt, letterIndex, currentWordSel)
+
+
+function isCorrect(evt, letterIndex, currentWordSel) {
+  i = letterIndex;
+  currentLetter = currentWordSel[i].innerHTML;
+  console.log(currentLetter)
+  if (evt.key !== currentLetter) {
+    currentWordSel[i].className = "";
+    currentWordSel[i].classList.add("incorrect")
+    return false;
+  } else {
+    currentWordSel[i].className = "";
+    currentWordSel[i].classList.add("correct")
+    return true;
   }
+  // if (evt.key === currentLetter) {
+  //   // currentLetterSec[i].className = "";
+  //   // currentLetterSec[i].classList.add("correct")
+  // } else {
+  //   // currentLetterSec[i].className = "";
+  //   // currentLetterSec[i].classList.add("incorrect")
 }
 
