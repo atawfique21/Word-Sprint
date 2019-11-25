@@ -38,12 +38,11 @@ window.onload = function () {
     console.log(letterIndex)
     if (evt.key === 'CapsLock' || evt.key === 'Meta') {
       return;
-    } else if (evt.key === 'Backspace' && letterIndex === 0) {
-      return;
-    } else if (evt.key === 'Backspace' && letterIndex >= 1) {
+    } else if (evt.key === 'Backspace') {
       console.log(letterIndex)
-      letterIndex--
+
       currentWordSel[letterIndex].className = "";
+
     } else {
       if (!isCorrect(evt, letterIndex, currentWordSel)) {
         // letterIndex++
