@@ -1,21 +1,45 @@
 let randWordArray = ["another", "then", "also", "done", "generally", "back", "public", "copper", "quickly", "heard", "cattle", "program", "layers", "hidden", "gentle", "shelf", "danger", "fire", "carried", "frog", "shine", "between", "straw", "else", "cat", "nearly", "studying", "those", "pour", "might", "excellent", "planning", "ring", "pride", "proper", "stepped", "highway", "driver", "charge", "making", "four", "sold", "fact", "hard", "travel", "happen", "present", "understanding", "anything", "newspaper",
   "eventually", "cow", "ride", "written", "serious", "honor", "eventually", "hair", "unless", "dog", "cap", "declared", "stiff", "clear", "garden", "known", "process", "tongue", "joined", "shadow", "subject", "pull", "silly", "breath", "plural", "cream", "love", "thing", "afraid", "tent", "underline", "bus", "sheep", "hollow", "sad", "shout", "shore", "medicine", "image", "children", "making", "thread", "begun", "poet", "fifty", "record", "pink", "function", "disappear", "good"]
 let score = 0;
+let sec = 60;
 
-function stopGame() {
-  document.body.removeEventListener('keydown', eventListener, false)
+function shuffle(arr) {
+  let shuffledDeck = arr;
+  let currentIndex = arr.length;
+  let temporaryValue;
+  let randomIndex;
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex); //create a number between 0 & 52
+    currentIndex-- //subtract one for the sake of not looping forever
+    temporaryValue = shuffledDeck[currentIndex] // deck[52]
+    shuffledDeck[currentIndex] = shuffledDeck[randomIndex] // deck[52] == deck[random]
+    shuffledDeck[randomIndex] = temporaryValue // deck[random] == tempvalue
+  }
+  return shuffledDeck;
 }
 
 
+function stopGame() {
+  shuffle(randWordArray)
+  document.querySelectorAll(`h4`).forEach(el => el.remove());
+  let button = document.createElement('button')
+  button.setAttribute('id', 'start')
+  button.innerHTML = 'RESTART'
+  document.body.querySelector('#word').appendChild(button)
+  document.querySelector('#start').addEventListener('click', startGame)
+}
+
 function startGame() {
-  document.querySelector('#start').style.display = "none";
+  let timeSelector = document.querySelector("#time > h3")
+  timeSelector.innerHTML = 59;
+  score = 0;
+  sec = 59;
+  document.querySelector('#start').remove()
   function startTimer() {
-    let timeSelector = document.querySelector("#time > h3")
-    let sec = 60;
     let timer = setInterval(function () {
       timeSelector.innerHTML = sec
       sec--;
-      if (sec < 55) {
+      if (sec < 0) {
         clearInterval(timer)
         stopGame()
       }
@@ -23,9 +47,6 @@ function startGame() {
   }
 
   startTimer()
-
-
-
 
   function addScore() {
     let scoreSelector = document.querySelector("#score > h3")
@@ -68,6 +89,9 @@ function startGame() {
     }, 350);
     let currentWordSel = document.querySelectorAll(`h4[char-${arrayIndex}]`);
     document.body.addEventListener('keydown', function eventListener(evt) {
+      if (sec < 0) {
+        return;
+      }
       if (evt.key === 'CapsLock' || evt.key === 'Meta' || evt.key === 'Shift') {
         return;
       } else if (evt.key === 'Backspace') {
@@ -93,24 +117,11 @@ function startGame() {
   newWord(randWordArray)
 }
 
+
+
 window.onload = async function () {
   let baseURL = 'https://random-word-api.herokuapp.com/all?key='
   const key = '00NP3T24'
-
-  function shuffle(arr) {
-    let shuffledDeck = arr;
-    let currentIndex = arr.length;
-    let temporaryValue;
-    let randomIndex;
-    while (currentIndex !== 0) {
-      randomIndex = Math.floor(Math.random() * currentIndex); //create a number between 0 & 52
-      currentIndex-- //subtract one for the sake of not looping forever
-      temporaryValue = shuffledDeck[currentIndex] // deck[52]
-      shuffledDeck[currentIndex] = shuffledDeck[randomIndex] // deck[52] == deck[random]
-      shuffledDeck[randomIndex] = temporaryValue // deck[random] == tempvalue
-    }
-    return shuffledDeck;
-  }
   shuffle(randWordArray)
 
   document.querySelector('#start').addEventListener('click', startGame)
