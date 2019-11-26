@@ -21,6 +21,8 @@ function shuffle(arr) {
 
 function stopGame() {
   shuffle(randWordArray)
+  let nextUpDiv = document.querySelector('#nextup2')
+  nextUpDiv.style.visibility = 'hidden'
   document.querySelectorAll(`h4`).forEach(el => el.remove());
   let button = document.createElement('button')
   button.setAttribute('id', 'start')
