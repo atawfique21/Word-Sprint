@@ -6,8 +6,6 @@ window.onload = async function () {
 
   let getRandWord = async function () {
     const response = await axios.get(`${baseURL}${key}`)
-
-    console.log(response)
     for (let i = 0; i < 200; i++) {
       let returnRandomizedWord = function (response) {
         response = response.data;
@@ -40,33 +38,34 @@ window.onload = async function () {
     let wordDiv = document.querySelector('#word')
     wordDiv.innerHTML = ""
     let word = arr[arrayIndex].split("")
-    console.log(word)
     for (i = 0; i < word.length; i++) {
       let newElem = document.createElement("h4")
-      newElem.setAttribute('char', 'w')
+      newElem.setAttribute(`char-${arrayIndex}`, 'w')
       newElem.innerHTML = word[i]
       wordDiv.appendChild(newElem)
       wordLength++
     }
     let letterIndex = 0;
-    let currentWordSel = document.querySelectorAll(`h4`);
+    let currentWordSel = document.querySelectorAll(`h4[char-${arrayIndex}]`);
+    console.log(currentWordSel)
 
     document.body.addEventListener('keydown', function (evt) {
+      console.log(currentWordSel, letterIndex)
       if (evt.key === 'CapsLock' || evt.key === 'Meta' || evt.key === 'Shift') {
         return;
       } else if (evt.key === 'Backspace') {
+        currentWordSel[letterIndex].classList.remove("correct")
+        currentWordSel[letterIndex].classList.remove("incorrect")
+      } else if (evt.key !== 'Backspace' && currentWordSel[letterIndex].classList.contains("incorrect")) {
         console.log(currentWordSel, letterIndex)
-        console.log(currentWordSel[letterIndex])
-        currentWordSel[letterIndex].className = "";
-      } else if (!evt.key !== 'BackSpace' && currentWordSel[letterIndex].classList.contains("incorrect")) {
+        // console.log(currentWordSel[letterIndex])
         return;
       } else {
         if (!isCorrect(evt, letterIndex, currentWordSel)) {
+          return;
         } else {
-          letterIndex = letterIndex + 1;
-          console.log(letterIndex)
+          letterIndex++;
           if (letterIndex === wordLength) {
-            console.log('hi')
             newWord(randWordArray)
           }
         }
