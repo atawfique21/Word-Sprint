@@ -33,6 +33,22 @@ window.onload = async function () {
   //   }
   // }
   // await getRandWord()
+  function startTimer() {
+    let timeSelector = document.querySelector("#time > h3")
+    let sec = 60;
+    let timer = setInterval(function () {
+      timeSelector.innerHTML = sec
+      sec--;
+      if (sec === 55) {
+        clearInterval(timer)
+      }
+    }, 1000);
+  }
+
+  startTimer()
+
+
+
 
   function isCorrect(evt, letterIndex, currentWordSel) {
     i = letterIndex;
@@ -64,9 +80,7 @@ window.onload = async function () {
     }
     let letterIndex = 0;
     let currentWordSel = document.querySelectorAll(`h4[char-${arrayIndex}]`);
-    console.log(currentWordSel)
-
-    document.body.addEventListener('keydown', function (evt) {
+    document.body.addEventListener('keydown', function eventListener(evt) {
       console.log(currentWordSel, letterIndex)
       if (evt.key === 'CapsLock' || evt.key === 'Meta' || evt.key === 'Shift') {
         return;
@@ -83,6 +97,7 @@ window.onload = async function () {
         } else {
           letterIndex++;
           if (letterIndex === wordLength) {
+            document.body.removeEventListener('keydown', eventListener, false)
             newWord(randWordArray)
           }
         }
@@ -90,9 +105,5 @@ window.onload = async function () {
     })
     arrayIndex++
   }
-
   newWord(randWordArray)
-
-  // window.onload = function () {
-
 }
