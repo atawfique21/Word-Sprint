@@ -25,11 +25,12 @@ function stopGame() {
   let button = document.createElement('button')
   button.setAttribute('id', 'start')
   button.innerHTML = 'RESTART'
-  document.body.querySelector('#word').appendChild(button)
+  document.body.querySelector('#word2').appendChild(button)
   document.querySelector('#start').addEventListener('click', startGame)
 }
 
 function startGame() {
+
   let timeSelector = document.querySelector("#time > h3")
   timeSelector.innerHTML = 59;
   score = 0;
@@ -72,7 +73,7 @@ function startGame() {
   function newWord(arr) {
     wordLength = 0;
     addScore()
-    let wordDiv = document.querySelector('#word')
+    let wordDiv = document.querySelector('#word2')
     // wordDiv.innerHTML = ""
     document.querySelectorAll(`h4[char-${arrayIndex - 1}]`).forEach(el => el.remove());
     let word = arr[arrayIndex].split("")
@@ -80,9 +81,18 @@ function startGame() {
       let newElem = document.createElement("h4")
       newElem.setAttribute(`char-${arrayIndex}`, 'w')
       newElem.innerHTML = word[i]
+      newElem.style.fontSize = "50px"
       wordDiv.appendChild(newElem)
       wordLength++
     }
+    function showNextUp() {
+      let nextUpDiv = document.querySelector('#nextup2')
+      nextUpDiv.style.visibility = 'visible'
+      let nextWord = arr[arrayIndex + 1]
+      let nextUp = document.querySelector('#nextwordhere')
+      nextUp.innerHTML = nextWord;
+    }
+    showNextUp()
     let letterIndex = 0;
     let toggle = setInterval(() => {
       currentWordSel[letterIndex].classList.toggle("onIt")
