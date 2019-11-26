@@ -5,36 +5,38 @@ window.onload = async function () {
     "eventually", "cow", "ride", "written", "serious", "honor", "eventually", "hair", "unless", "dog", "cap", "declared", "stiff", "clear", "garden", "known", "process", "tongue", "joined", "shadow", "subject", "pull", "silly", "breath", "plural", "cream", "love", "thing", "afraid", "tent", "underline", "bus", "sheep", "hollow", "sad", "shout", "shore", "medicine", "image", "children", "making", "thread", "begun", "poet", "fifty", "record", "pink", "function", "disappear", "good"]
   let score = 0;
 
-  // function shuffle(arr) {
-  //   let shuffledDeck = arr;
-  //   let currentIndex = arr.length;
-  //   let temporaryValue;
-  //   let randomIndex;
-  //   while (currentIndex !== 0) {
-  //     randomIndex = Math.floor(Math.random() * currentIndex); //create a number between 0 & 52
-  //     currentIndex-- //subtract one for the sake of not looping forever
-  //     temporaryValue = shuffledDeck[currentIndex] // deck[52]
-  //     shuffledDeck[currentIndex] = shuffledDeck[randomIndex] // deck[52] == deck[random]
-  //     shuffledDeck[randomIndex] = temporaryValue // deck[random] == tempvalue
-  //   }
-  //   return shuffledDeck;
-  // }
-
-  // shuffle(randWordArray)
-
-  let getRandWord = async function () {
-    const response = await axios.get(`${baseURL}${key}`)
-    for (let i = 0; i < 200; i++) {
-      let returnRandomizedWord = function (response) {
-        response = response.data;
-        let num = Math.floor(Math.random() * response.length)
-        let randomWord = response[num]
-        randWordArray.push(randomWord)
-      }
-      returnRandomizedWord(response)
+  function shuffle(arr) {
+    let shuffledDeck = arr;
+    let currentIndex = arr.length;
+    let temporaryValue;
+    let randomIndex;
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex); //create a number between 0 & 52
+      currentIndex-- //subtract one for the sake of not looping forever
+      temporaryValue = shuffledDeck[currentIndex] // deck[52]
+      shuffledDeck[currentIndex] = shuffledDeck[randomIndex] // deck[52] == deck[random]
+      shuffledDeck[randomIndex] = temporaryValue // deck[random] == tempvalue
     }
+    return shuffledDeck;
   }
-  await getRandWord()
+
+  shuffle(randWordArray)
+
+  // let getRandWord = async function () {
+  //   const response = await axios.get(`${baseURL}${key}`)
+  //   for (let i = 0; i < 200; i++) {
+  //     let returnRandomizedWord = function (response) {
+  //       response = response.data;
+  //       let num = Math.floor(Math.random() * response.length)
+  //       let randomWord = response[num]
+  //       randWordArray.push(randomWord)
+  //     }
+  //     returnRandomizedWord(response)
+  //   }
+  // }
+  // await getRandWord()
+
+
   function startTimer() {
     let timeSelector = document.querySelector("#time > h3")
     let sec = 60;
