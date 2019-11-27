@@ -24,20 +24,58 @@ function stopGame() {
   let nextUpDiv = document.querySelector('#nextup2')
   nextUpDiv.style.visibility = 'hidden'
   document.querySelectorAll(`h4`).forEach(el => el.remove());
-  let button = document.createElement('button')
-  button.setAttribute('id', 'start')
-  button.innerHTML = 'RESTART'
-  document.body.querySelector('#word2').appendChild(button)
-  document.querySelector('#start').addEventListener('click', startGame)
+  let buttonDiv = document.querySelector('#buttons')
+  let button1 = document.createElement('button')
+  let button2 = document.createElement('button')
+  button1.setAttribute('id', 'start')
+  button2.setAttribute('id', 'start2')
+  button1.innerHTML = 'START GAME'
+  button2.innerHTML = 'START MULTIPLIER GAME'
+  button1.addEventListener('click', function () {
+    startGame(2)
+  })
+  button2.addEventListener('click', function () {
+    startGame(1)
+  })
+  buttonDiv.appendChild(button1)
+  buttonDiv.appendChild(button2)
+  // let button = document.createElement('button')
+  // button.setAttribute('id', 'start')
+  // button.innerHTML = 'RESTART'
+  // document.body.querySelector('#word2').appendChild(button)
+  // document.querySelector('#start').addEventListener('click', startGame)
 }
 
-function startGame() {
+function removeButtons() {
+  document.querySelector('#start').remove()
+  document.querySelector('#start2').remove()
+}
+
+
+function startGame(gamemode) {
   let timeSelector = document.querySelector("#time > h3")
   timeSelector.innerHTML = 59;
   score = 0;
   sec = 59;
-  document.querySelector('#start').remove()
-
+  let multiplier = 1;
+  function multiply(type) {
+    let multiplierText = document.querySelector('#multiplierHere')
+    if (type === 'reset') {
+      multiplier = 1;
+      multiplierText.innerHTML = multiplier;
+    }
+    if (type === 'multi') {
+      multiplier = multiplier + 1;
+      multiplierText.innerHTML = multiplier;
+    }
+  }
+  function addMultiplier() {
+    console.log("added to multiplier")
+    let multiplierDiv = document.querySelector('#scoreMulti')
+    multiplierDiv.style.visibility = 'visible'
+    let multiplierText = document.querySelector('#multiplierHere')
+    multiplierText.innerHTML = multiplier;
+  }
   function startTimer() {
     let timer = setInterval(function () {
       timeSelector.innerHTML = sec
@@ -54,18 +92,27 @@ function startGame() {
       }
     }, 1000);
   }
-
-  startTimer()
-
   function addScore() {
     let scoreSelector = document.querySelector("#score > h3")
-    newScore = score++
-    scoreSelector.innerHTML = newScore;
-    if (scoreSelector.innerHTML > 0) {
-      scoreSelector.style.color = '#3AB795'
-      setTimeout(() => {
-        scoreSelector.style.color = '#f1f2f5'
-      }, 300);
+    if (multiplier > 1) {
+      score = score * (multiplier - 1);
+      scoreSelector.innerHTML = score;
+      if (scoreSelector.innerHTML > 0) {
+        scoreSelector.style.color = '#3AB795'
+        setTimeout(() => {
+          scoreSelector.style.color = '#f1f2f5'
+        }, 300);
+      }
+    } else {
+      // multiply('reset')
+      newScore = score++
+      scoreSelector.innerHTML = newScore;
+      if (scoreSelector.innerHTML > 0) {
+        scoreSelector.style.color = '#3AB795'
+        setTimeout(() => {
+          scoreSelector.style.color = '#f1f2f5'
+        }, 300);
+      }
     }
   }
 
@@ -75,6 +122,7 @@ function startGame() {
     if (evt.key !== currentLetter) {
       currentWordSel[i].className = "";
       currentWordSel[i].classList.add("incorrect")
+      multiply('reset')
       return false;
     } else {
       currentWordSel[i].className = "";
@@ -82,9 +130,12 @@ function startGame() {
       return true;
     }
   }
+  function multiplyScore() {
+
+  }
   let arrayIndex = 0;
   let wordLength = 0;
-  function newWord(arr) {
+  function newWord(arr, gamemode) {
     wordLength = 0;
     addScore()
     let wordDiv = document.querySelector('#word2')
@@ -129,16 +180,37 @@ function startGame() {
         } else {
           letterIndex++;
           if (letterIndex === wordLength) {
-            document.body.removeEventListener('keydown', eventListener, false)
-            setTimeout(function () { newWord(randWordArray) }, 30);
-            clearInterval(toggle)
+            if (gamemode === 1) {
+              if (multiplier === 1) {
+                console.log("woo")
+                addScore()
+              }
+              multiply('multi')
+
+              document.body.removeEventListener('keydown', eventListener, false)
+              setTimeout(function () { newWord(randWordArray, gamemode) }, 30);
+              clearInterval(toggle)
+            } else if (gamemode === 2) {
+              document.body.removeEventListener('keydown', eventListener, false)
+              setTimeout(function () { newWord(randWordArray, gamemode) }, 30);
+              clearInterval(toggle)
+            }
           }
         }
       }
     })
     arrayIndex++
   }
-  newWord(randWordArray)
+  if (gamemode === 1) {
+    removeButtons()
+    startTimer()
+    addMultiplier()
+    newWord(randWordArray, 1)
+  } else if (gamemode === 2) {
+    removeButtons()
+    startTimer()
+    newWord(randWordArray, 2)
+  }
 }
 
 
@@ -148,9 +220,13 @@ window.onload = async function () {
   const key = '00NP3T24'
   shuffle(randWordArray)
 
-  document.querySelector('#start').addEventListener('click', startGame)
+  document.querySelector('#start').addEventListener('click', function () {
+    startGame(2)
+  })
+  document.querySelector('#start2').addEventListener('click', function () {
+    startGame(1)
+  })
 }
-
 // if using api, insert code below into window.onload and empty the randwordarray.
   // let getRandWord = async function () {
   //   const response = await axios.get(`${baseURL}${key}`)
