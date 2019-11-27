@@ -98,16 +98,30 @@ h3 {
   margin-bottom: 20px;
 }
 
-#nextup2 {
+#nextup2, #scoreMulti {
   display: flex;
   flex-direction: row;
   font-size: 20px;
   font-style: italic;
   visibility: hidden;
+  margin-bottom: -20px;
+}
+
+#buttons{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  /* border: 2px solid red; */
+  align-items: center;
+
+}
+
+#start{
+  margin-top: 120px;
 }
 
 button {
-  padding: 8px;
+  /* padding: 8px; */
   text-align: center;
   color: #e4e7ee;
   background-color: transparent;
@@ -117,6 +131,9 @@ button {
   border-radius: 5px;
   height: 30px;
   align-content: center;
+  margin: 20px;
+  margin-top: 30px;
+  width: 230px;
 }
 
 button:hover {
@@ -132,7 +149,7 @@ button:hover {
   align-items: center;
   /* align-content: space-around; */
   font-size: 70px;
-  height: 368px;
+  /* height: 368px; */
   /* border: 2px solid red; */
   flex-direction: column;
 }
