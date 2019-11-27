@@ -32,16 +32,22 @@ function stopGame() {
 }
 
 function startGame() {
-
   let timeSelector = document.querySelector("#time > h3")
   timeSelector.innerHTML = 59;
   score = 0;
   sec = 59;
   document.querySelector('#start').remove()
+
   function startTimer() {
     let timer = setInterval(function () {
       timeSelector.innerHTML = sec
       sec--;
+      if (sec === 49 || sec === 39 || sec === 29 || sec === 19 || sec === 9 || sec === 2 || sec === 1 || sec === 0) {
+        timeSelector.style.color = '#EF476F'
+        setTimeout(() => {
+          timeSelector.style.color = '#f1f2f5'
+        }, 500);
+      }
       if (sec < 0) {
         clearInterval(timer)
         stopGame()
@@ -55,6 +61,12 @@ function startGame() {
     let scoreSelector = document.querySelector("#score > h3")
     newScore = score++
     scoreSelector.innerHTML = newScore;
+    if (scoreSelector.innerHTML > 0) {
+      scoreSelector.style.color = '#3AB795'
+      setTimeout(() => {
+        scoreSelector.style.color = '#f1f2f5'
+      }, 300);
+    }
   }
 
   function isCorrect(evt, letterIndex, currentWordSel) {
