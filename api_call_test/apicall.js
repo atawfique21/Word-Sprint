@@ -39,8 +39,11 @@ function stopGame() {
   })
   buttonDiv.appendChild(button1)
   buttonDiv.appendChild(button2)
+<<<<<<< HEAD
   let multiplierDiv = document.querySelector('#scoreMulti')
   multiplierDiv.style.visibility = 'hidden'
+=======
+>>>>>>> 9872e6022c9dd6f71567ecabdd50a3900282c4e7
   // let button = document.createElement('button')
   // button.setAttribute('id', 'start')
   // button.innerHTML = 'RESTART'
@@ -67,12 +70,17 @@ function startGame(gamemode) {
       multiplierText.innerHTML = multiplier;
     }
     if (type === 'multi') {
+<<<<<<< HEAD
       // if (multiplier > 1) {
       //   return;
       // } else {
       multiplier = multiplier + 1;
       multiplierText.innerHTML = multiplier;
       // }
+=======
+      multiplier = multiplier + 1;
+      multiplierText.innerHTML = multiplier;
+>>>>>>> 9872e6022c9dd6f71567ecabdd50a3900282c4e7
     }
   }
   function addMultiplier() {
@@ -101,7 +109,11 @@ function startGame(gamemode) {
   function addScore() {
     let scoreSelector = document.querySelector("#score > h3")
     if (multiplier > 1) {
+<<<<<<< HEAD
       score = score * multiplier;
+=======
+      score = score * (multiplier - 1);
+>>>>>>> 9872e6022c9dd6f71567ecabdd50a3900282c4e7
       scoreSelector.innerHTML = score;
       if (scoreSelector.innerHTML > 0) {
         scoreSelector.style.color = '#3AB795'
@@ -192,6 +204,10 @@ function startGame(gamemode) {
                 addScore()
               }
               multiply('multi')
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9872e6022c9dd6f71567ecabdd50a3900282c4e7
               document.body.removeEventListener('keydown', eventListener, false)
               setTimeout(function () { newWord(randWordArray, gamemode) }, 30);
               clearInterval(toggle)
