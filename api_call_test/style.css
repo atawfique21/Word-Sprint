@@ -73,7 +73,7 @@ h3 {
   height: 75px;
   background: rgba(black, black, black, 0.3);
   border: 3px solid #EF6461;
-  border-radius: 50px;
+  border-radius: 55px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -139,7 +139,7 @@ button {
 button:hover {
   background-color: #c9ccd27e;
   color: #f1f2f5;
-  transform: scale(2.1)
+  transform: scale(2.05)
 }
 
 #word {
@@ -180,3 +180,37 @@ span {
   display: inline;
 }
 
+
+@media only screen 
+and (min-device-width : 375px) 
+and (max-device-width : 812px) 
+and (-webkit-device-pixel-ratio : 3)
+and (orientation : portrait) {
+body {
+  margin: auto;
+}
+#gameboard {
+  width: 340px;
+  height: 500px;
+}
+button {
+  width: 150px;
+}
+#score {
+  margin-right: 115px;
+}
+h1 {
+  transform: translateY(-3px);
+  font-weight: 325;
+}
+}
+
+@media only screen 
+and (min-device-width : 375px) 
+and (max-device-width : 812px) 
+and (-webkit-device-pixel-ratio : 3)
+and (orientation : landscape) {
+body {
+  background-size: 250vw 250vh;
+}
+}

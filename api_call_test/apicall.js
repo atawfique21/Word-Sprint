@@ -39,6 +39,8 @@ function stopGame() {
   })
   buttonDiv.appendChild(button1)
   buttonDiv.appendChild(button2)
+  let multiplierDiv = document.querySelector('#scoreMulti')
+  multiplierDiv.style.visibility = 'hidden'
   // let button = document.createElement('button')
   // button.setAttribute('id', 'start')
   // button.innerHTML = 'RESTART'
@@ -65,8 +67,12 @@ function startGame(gamemode) {
       multiplierText.innerHTML = multiplier;
     }
     if (type === 'multi') {
+      // if (multiplier > 1) {
+      //   return;
+      // } else {
       multiplier = multiplier + 1;
       multiplierText.innerHTML = multiplier;
+      // }
     }
   }
   function addMultiplier() {
@@ -95,7 +101,7 @@ function startGame(gamemode) {
   function addScore() {
     let scoreSelector = document.querySelector("#score > h3")
     if (multiplier > 1) {
-      score = score * (multiplier - 1);
+      score = score * multiplier;
       scoreSelector.innerHTML = score;
       if (scoreSelector.innerHTML > 0) {
         scoreSelector.style.color = '#3AB795'
@@ -186,7 +192,6 @@ function startGame(gamemode) {
                 addScore()
               }
               multiply('multi')
-
               document.body.removeEventListener('keydown', eventListener, false)
               setTimeout(function () { newWord(randWordArray, gamemode) }, 30);
               clearInterval(toggle)
