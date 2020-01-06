@@ -15,3 +15,7 @@ Quite simply, a **typing game**. Using HTML/CSS/JS in combination with a word AP
 ## Stretch Goals
 **Difficulty Slider:** A drop-down will exist on the page where you can select the difficulty of the words to type. More difficult words will generally be longer strings, along with words that aren't used on a day-to-day basis that would make it hard for a player to know how to spell something off the top of their head. 
 **Accuracy Game:** Using much of the same game principals, if words are typed correctly consecutively, a score multiplier appears on the screen and gets bigger & more serious as more words are typed correctly in a row. This will also change the scoring system as each word typed correctly will multiply the base score (+1) by a factor of 0.1. So (1.1x, 1.2x, 1.3x... onward.)
+
+## Known Issues
+- Streak game doesn’t reset when you do the streak game and mess up twice. 
+- Take out British words
